@@ -11,3 +11,5 @@
 Если вы раньше не работали со Svelte, то пригодятся [_учебник_](https://learn.svelte.dev/tutorial/welcome-to-svelte) и [_документация_](https://svelte.dev/docs/introduction). Для выполнения задания понадобятся главы __Reactivity__ и __Bindings__.
 
 Визуальная составляющая остается на ваш вкус. Она не является ключевым фактором в данном задании.
+
+Посмотреть можно здесь: frontend-test-task-nu.vercel.app
