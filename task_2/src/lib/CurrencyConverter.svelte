@@ -69,10 +69,9 @@
 
 
   let convertedAmount:string=''
-   const setAmount=()=>{
-     convertedAmount = (amount * exchangeRate).toFixed(2);
-   } 
-
+ 
+  
+  $: convertedAmount = (amount * exchangeRate).toFixed(2);
   $: dispatch('change', { baseCurrency, targetCurrency, amount, convertedAmount });
 </script>
 <style>
@@ -117,7 +116,6 @@
 {#if loading}
   <p>Loading...</p>
 {/if}
-<Button onClick={setAmount} name='Convert' />
 
 <div>
   <p class="amount">Converted Amount: <span>{convertedAmount}</span></p>
