@@ -8,6 +8,10 @@
 </script>
 
 <style>
+   :global(label){
+  font-size: 18px;
+  letter-spacing: 0.2px;
+  }
 .root{
   padding:  80px;
   height: 20%;
@@ -16,9 +20,7 @@
   border-radius: 20px;
   box-shadow: 5px 9px 8px hsla(0, 0%, 0%, 0.1);
 }
-h1{
-  color: #081c15;
-}
+
 </style>
 <div class="root">
 <h1>Currency Converter</h1>

@@ -4,16 +4,17 @@
   import { createEventDispatcher } from 'svelte';
   import List from '../components/List/List.svelte'
   import InputSum from '../components/InputSum/InputSum.svelte';
+  import Button from '../components/Button/Button.svelte';
   const dispatch = createEventDispatcher();
   
   let currencies:string[] = [];
-  let baseCurrency = 'USD';
-  let targetCurrency = 'RUB';
-  let amount = 5;
+  let baseCurrency:string = 'USD';
+  let targetCurrency:string = 'RUB';
+  let amount:number = 100;
   let exchangeRate: number= 1;
-  let loading = false;
+  let loading:boolean = false;
   let error:string = '';
-  let loaded = false;
+  let loaded:boolean = false;
 
   const fetchExchangeRate = async () => {
     try {
@@ -46,12 +47,11 @@
       baseCurrency = select.value;
       fetchExchangeRate();
     }
-  
+
   };
 
   const handleTargetCurrencyChange = (event: Event) => {
-    const select = event.target as HTMLSelectElement;
-    
+  const select = event.target as HTMLSelectElement;
     if (select && loaded) {
       targetCurrency = select.value;
       fetchExchangeRate();
@@ -75,23 +75,50 @@
 
   $: dispatch('change', { baseCurrency, targetCurrency, amount, convertedAmount });
 </script>
-
+<style>
+  .select_box{
+    display: flex;
+    gap: 20px;
+    padding-bottom: 20px;
+    align-items: center;
+  }
+  .amount{
+    font-size: 18px;
+    display: flex;
+    gap: 5px;
+    justify-content: center;
+    letter-spacing: 0.5px;
+  }
+  .arrow{
+    font-size: 30px;
+  }
+</style>
 
 {#if error}
   <p style="color: red;">{error}</p>
 {/if}
-
-<List currencies={currencies} id='baseCurrency' selectedCurrency={baseCurrency}  label='Base Currency:' onChange={handleBaseCurrencyChange} />
-<List currencies={currencies} id='targetCurrency' selectedCurrency={targetCurrency} label='Target Currency:' onChange={handleTargetCurrencyChange} />
+<div class="select_box">
+<List
+  currencies={currencies}
+  id='baseCurrency'
+  selectedCurrency={baseCurrency}
+  label='Base Currency:'
+  onChange={handleBaseCurrencyChange} />
+  <span class="arrow">→</span>
+<List
+  currencies={currencies}
+  id='targetCurrency'
+  selectedCurrency={targetCurrency}
+  label='Target Currency:'
+  onChange={handleTargetCurrencyChange} />
+</div>
 <InputSum value={amount} onInput={handleAmountChange} label='Amount:' id='amount'/>
 
 {#if loading}
   <p>Loading...</p>
 {/if}
-<div>
-  <button on:click={setAmount}>Convert</button>
-</div>
+<Button onClick={setAmount} name='Convert' />
 
 <div>
-  <p>Converted Amount: {convertedAmount}</p>
+  <p class="amount">Converted Amount: <span>{convertedAmount}</span></p>
 </div>
